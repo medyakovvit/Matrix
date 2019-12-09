@@ -6,8 +6,12 @@ CONFIG -= app_bundle
 
 TEMPLATE = app
 
-SOURCES +=  tst_matrix.cpp \
-    ../MatrixLib/Matrix.cpp
+LIBS += -L$$PWD/../dependencies/armadillo-9.800.3/lib \
+        -larmadillo
+
+INCLUDEPATH += $$PWD/../dependencies/armadillo-9.800.3/include
+
+SOURCES +=  tst_matrix.cpp
 
 HEADERS += \
     ../MatrixLib/Matrix.h

@@ -16,12 +16,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
-SOURCES += \
-    Matrix.cpp
+SOURCES +=
 
 HEADERS += \
     Matrix.h \
-    MatrixLib_global.h
+    MatrixBase.h \
+    MatrixLib_global.h \
+    Vector.h
 
 # Default rules for deployment.
 unix {
