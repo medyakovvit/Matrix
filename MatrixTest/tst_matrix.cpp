@@ -48,7 +48,7 @@ void matrix::multiplyScalar()
 
         for (int i = 0; i < rows; i++)
             for (int j = 0; j < cols; j++)
-                tempM.setElement(i, j, expectedM.at(i, j));
+                tempM(i, j) = expectedM.at(i, j);
 
         expectedM *= scalar;
         Matrix<int> resultM = tempM * scalar;
@@ -59,7 +59,7 @@ void matrix::multiplyScalar()
 
         for(int row = 0; row < rows; row++)
             for(int col = 0; col < cols; col++)
-                QCOMPARE(resultM.getElement(row, col), expectedM.at(row, col));
+                QCOMPARE(resultM(row, col), expectedM.at(row, col));
     }
 }
 
@@ -81,12 +81,12 @@ void matrix::multiplyMatrices()
         // Copy elements to Matrix1
         for (int i = 0; i < rows; i++)
             for (int j = 0; j < cols; j++)
-                tempM.setElement(i, j, expectedM.at(i, j));
+                tempM(i, j) = expectedM.at(i, j);
 
         // Copy elements to Matrix2
         for (int i = 0; i < cols; i++)
             for (int j = 0; j < matrix1.n_cols; j++)
-                matrix2.setElement(i, j, matrix1.at(i, j));
+                matrix2(i, j) = matrix1.at(i, j);
 
         expectedM *= matrix1;
         Matrix<int> resultM = tempM * matrix2;
@@ -98,7 +98,7 @@ void matrix::multiplyMatrices()
         // Compare elements
         for(int row = 0; row < resultM.getRows(); row++)
             for(int col = 0; col < resultM.getColumns(); col++)
-                QCOMPARE(resultM.getElement(row, col), expectedM.at(row, col));
+                QCOMPARE(resultM(row, col), expectedM.at(row, col));
     }
 }
 
@@ -114,20 +114,20 @@ void matrix::vectorsAddition()
         auto expectedVec = armaVec1 + armaVec2;
 
         Vector<int> vec1(i);
-        for(int i = 0; i < vec1.getNumberOfElements(); i++)
+        for(int i = 0; i < vec1.size(); i++)
             vec1.setElement(i, armaVec1.at(uword(i)));
 
         Vector<int> vec2(i);
-        for(int i = 0; i < vec2.getNumberOfElements(); i++)
+        for(int i = 0; i < vec2.size(); i++)
             vec2.setElement(i, armaVec2.at(uword(i)));
 
         Vector<int> resultedVec = vec1 + vec2;
 
         QVERIFY2(resultedVec.isValid(), "Resulted matrix is not valid");
-        QVERIFY2(resultedVec.getNumberOfElements() == expectedVec.get_n_elem(), "Resulted vector has wrong number of elements");
+        QVERIFY2(resultedVec.size() == expectedVec.get_n_elem(), "Resulted vector has wrong number of elements");
 
         // Compare elements
-        for(int i = 0; i < resultedVec.getNumberOfElements(); i++)
+        for(int i = 0; i < resultedVec.size(); i++)
             QCOMPARE(resultedVec.getElement(i), expectedVec[i]);
     }
 }
@@ -150,13 +150,13 @@ void matrix::matricesAddition()
         Matrix<int> mat1(rows, cols);
         for(int i = 0; i < rows; i++)
             for(int j = 0; j < cols; j++)
-                mat1.setElement(i, j, armaMat1.at(uword(i), uword(j)));
+                mat1(i, j) = armaMat1.at(uword(i), uword(j));
 
         // Copy values from second arma matrix
         Matrix<int> mat2(rows, cols);
         for(int i = 0; i < rows; i++)
             for(int j = 0; j < cols; j++)
-                mat2.setElement(i, j, armaMat2.at(uword(i), uword(j)));
+                mat2(i, j) = armaMat2.at(uword(i), uword(j));
 
         Matrix<int> resultedMat = mat1 + mat2;
 
@@ -166,7 +166,7 @@ void matrix::matricesAddition()
         // Compare elements
         for(int i = 0; i < resultedMat.getRows(); i++)
             for(int j = 0; j < resultedMat.getColumns(); j++)
-                QCOMPARE(resultedMat.getElement(i, j), expectedMat.at(i, j));
+                QCOMPARE(resultedMat(i, j), expectedMat.at(i, j));
     }
 }
 

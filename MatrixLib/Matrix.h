@@ -22,26 +22,22 @@ public:
         MatrixBase<T>::m_cols = m.getColumns();
     }
 
-    void setElement(int row, int col, T value);
-    T getElement(int row, int col) const;
+    T& operator()(int row, int col)
+    {
+        int idx = row * MatrixBase<T>::m_cols + col;
+
+        assert(idx >= 0 && idx < size());
+        return (*this)[idx];
+    }
+
+    T& operator[](int idx)
+    {
+        assert(idx >= 0 && idx < size());
+        return MatrixBase<T>::m_data[idx];
+    }
 
     void identity();
 };
-
-template<typename T>
-void Matrix<T>::setElement(int row, int col, T value)
-{
-    int elementIndex = row * MatrixBase<T>::m_cols + col;
-
-    if (elementIndex < MatrixBase<T>::m_data.size())
-        MatrixBase<T>::m_data[elementIndex] = value;
-}
-
-template<typename T>
-T Matrix<T>::getElement(int row, int col) const
-{
-    return MatrixBase<T>::m_data.at(row * MatrixBase<T>::m_cols + col);
-}
 
 template<typename T>
 void Matrix<T>::identity()

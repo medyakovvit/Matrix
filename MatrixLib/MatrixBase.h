@@ -19,7 +19,6 @@ public:
 
     int getRows() const { return m_rows; }
     int getColumns() const { return m_cols; }
-    int getNumberOfElements() const { return m_data.size(); }
 
     MatrixBase<T> operator*(T scalar);
 
